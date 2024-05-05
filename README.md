@@ -1,3 +1,3 @@
 # Ejercicio de Bases de Datos
 
-Creación de un primer acercamiento.
+Utilización de POI para word y excel
