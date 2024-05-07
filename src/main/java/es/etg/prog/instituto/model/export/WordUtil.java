@@ -1,6 +1,5 @@
 package es.etg.prog.instituto.model.export;
 
-import java.io.ByteArrayOutputStream;
 import java.util.Map;
 import java.util.Set;
 
@@ -9,12 +8,12 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 
-import es.etg.prog.instituto.model.entities.Alumno;
 
-public class WordUtil {
+public class WordUtil extends OfficeUtil{
 
-    public static byte[]  crearFichero(Documento doc) throws Exception{
-        
+    @Override
+    public byte[]  crearFichero(Documento doc) throws Exception{
+        byte[] fileData = null;
         XWPFDocument document = new XWPFDocument();
 
         XWPFParagraph title = document.createParagraph();
@@ -41,10 +40,15 @@ public class WordUtil {
             para1Run.setText(parrafo);
         }
 
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        document.write(out);
-        out.close();
-        return out.toByteArray();
+        XWPFParagraph piePagina = document.createParagraph();
+        piePagina.setAlignment(ParagraphAlignment.RIGHT);
+        XWPFRun piePaginaRun = piePagina.createRun();
+        piePaginaRun.setText(doc.getPie());
+        piePaginaRun.setFontSize(11);
+        
+        fileData =  convertir(document);
+        document.close();
+        return fileData;
 
     }
 }

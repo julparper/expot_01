@@ -1,6 +1,7 @@
 package es.etg.prog.instituto.model.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -40,7 +41,7 @@ public class Instituto implements Documento {
 
     @Override
     public String getPie() {
-        return "Creado el "+System.currentTimeMillis();
+        return "Creado el "+new Date(System.currentTimeMillis());
     }
 
 }

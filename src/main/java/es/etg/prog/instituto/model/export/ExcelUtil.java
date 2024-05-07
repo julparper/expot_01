@@ -1,7 +1,5 @@
 package es.etg.prog.instituto.model.export;
 
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,11 +8,13 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class ExcelUtil {
+public class ExcelUtil extends OfficeUtil{
     
     public static final String NOMBRE_SHEET = "datos";
     
-    public static byte[]  crearFichero(Documento doc) throws Exception{
+    @Override
+    public byte[]  crearFichero(Documento doc) throws Exception{
+        byte[] fileData = null;
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet(NOMBRE_SHEET);
         Map<String, Object[]> data = doc.getContenido();
@@ -38,11 +38,8 @@ public class ExcelUtil {
             }
         }     
         
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        workbook.write(out); 
-        out.close();
-
-        return out.toByteArray();
-
+        fileData = convertir(workbook);
+        workbook.close();
+        return fileData;
     }
 }

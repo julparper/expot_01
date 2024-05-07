@@ -8,9 +8,8 @@ import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 
 import es.etg.prog.instituto.model.entities.Alumno;
 import es.etg.prog.instituto.model.entities.Instituto;
-import es.etg.prog.instituto.model.export.ExcelUtil;
-import es.etg.prog.instituto.model.export.WordUtil;
-
+import es.etg.prog.instituto.model.export.DocumentFactory;
+import es.etg.prog.instituto.model.export.DocumentoFormat;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -41,7 +40,7 @@ public class ExportOfficeTest {
     public void exportarExcel() throws Exception{
         FileOutputStream fichero = new FileOutputStream("test.xlsx");
 
-        fichero.write(ExcelUtil.crearFichero(instituto));
+        fichero.write(DocumentFactory.obtener(DocumentoFormat.EXCEL).crearFichero(instituto));
         fichero.close();
     }
 
@@ -49,7 +48,7 @@ public class ExportOfficeTest {
     public void exportarWord() throws Exception{
         FileOutputStream fichero = new FileOutputStream("test.docx");
 
-        fichero.write(WordUtil.crearFichero(instituto));
+        fichero.write(DocumentFactory.obtener(DocumentoFormat.WORD).crearFichero(instituto));
         fichero.close();
     }
 
